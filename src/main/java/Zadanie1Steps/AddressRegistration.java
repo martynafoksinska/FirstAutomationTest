@@ -7,9 +7,13 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.awt.*;
+
 import static org.junit.Assert.*;
 
 public class AddressRegistration {
@@ -40,12 +44,20 @@ public class AddressRegistration {
 
     @And("user checks if data is correct")
     public void userChecksIfDataIsCorrect() {
-        String expectedAlias = "Kuba";
-        WebElement actualAlias = driver.findElement(By.xpath("//*[@id='address-25253']/div[1]/h4"));
-        try {
-            assertEquals(expectedAlias, actualAlias.getText());
-        } catch (AssertionError e) {
-            System.out.println("Dane nie są zgodne, oczekiwane dane:" + expectedAlias + " otrzymane dane:" + actualAlias.getText());
+        String expectedAlias = "Home address1";
+        for (int i = 26000 ; i > 25270 ; i--) {
+            try {
+                WebElement actualAliasCheck = driver.findElement(By.xpath("//*[@id='address-" + i + "']/div[1]/h4"));
+            } catch (Exception e) {
+                continue;
+            }
+            WebElement actualAlias = driver.findElement(By.xpath("//*[@id='address-" + i + "']/div[1]/h4"));
+            try {
+                assertEquals(expectedAlias, actualAlias.getText());
+            } catch (AssertionError e) {
+                System.out.println("Dane nie są zgodne, oczekiwane dane:" + expectedAlias + " otrzymane dane:" + actualAlias.getText());
+            }
+            break;
         }
     }
 

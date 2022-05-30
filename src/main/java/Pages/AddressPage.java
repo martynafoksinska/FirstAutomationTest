@@ -35,21 +35,15 @@ public class AddressPage {
     }
 
     public void deletingAddress() throws InterruptedException {
-        WebElement deleteButton = driver.findElement(By.className("address"));
-        deleteButton.click();
-        Thread.sleep(2000);
-
-    }
-}
-
-    /*public boolean checkingDataInAddress(String name) {
-        WebElement addressName = driver.findElement(By.xpath("//*[@id='address-25232']/div[1]/h4"));
-
-        if (addressName.getText() == name) {
-            return true;
-        } else {
-            return false;
+        for (int i = 25270 ; i < 26000 ; i++) {
+            try {
+                WebElement deleteButton = driver.findElement(By.xpath("//*[@id='address-" + i + "']/div[2]/a[2]"));
+            } catch (Exception e) {
+                continue;
+            }
+            WebElement deleteButton = driver.findElement(By.xpath("//*[@id='address-" + i + "']/div[2]/a[2]"));
+            deleteButton.click();
+            break;
         }
     }
-    }
-     */
+}

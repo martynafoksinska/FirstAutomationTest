@@ -35,15 +35,8 @@ public class AddressPage {
     }
 
     public void deletingAddress() throws InterruptedException {
-        for (int i = 25270 ; i < 26000 ; i++) {
-            try {
-                WebElement deleteButton = driver.findElement(By.xpath("//*[@id='address-" + i + "']/div[2]/a[2]"));
-            } catch (Exception e) {
-                continue;
-            }
-            WebElement deleteButton = driver.findElement(By.xpath("//*[@id='address-" + i + "']/div[2]/a[2]"));
-            deleteButton.click();
-            break;
-        }
+        WebElement element = driver.findElement(By.xpath("//*[@id='main']"));
+        WebElement deleteButton = element.findElement(By.cssSelector("a[data-link-action='delete-address']"));
+        deleteButton.click();
     }
 }

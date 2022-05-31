@@ -7,14 +7,11 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.awt.*;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class AddressRegistration {
 
@@ -44,20 +41,17 @@ public class AddressRegistration {
 
     @And("user checks if data is correct")
     public void userChecksIfDataIsCorrect() {
-        String expectedAlias = "Home address1";
-        for (int i = 26000 ; i > 25270 ; i--) {
-            try {
-                WebElement actualAliasCheck = driver.findElement(By.xpath("//*[@id='address-" + i + "']/div[1]/h4"));
-            } catch (Exception e) {
-                continue;
-            }
-            WebElement actualAlias = driver.findElement(By.xpath("//*[@id='address-" + i + "']/div[1]/h4"));
-            try {
-                assertEquals(expectedAlias, actualAlias.getText());
-            } catch (AssertionError e) {
-                System.out.println("Dane nie są zgodne, oczekiwane dane:" + expectedAlias + " otrzymane dane:" + actualAlias.getText());
-            }
-            break;
+        String expectedAlias = "Home address";
+        WebElement rows = driver.findElement(By.xpath("//*[@id='content']"));
+        WebElement div = rows.findElement(By.cssSelector("div[class*=col-lg-4]"));
+        WebElement address = div.findElement(By.cssSelector("article[id*=address-]:last-child"));
+        String actualAlias = address.findElement(By.tagName("h4")).getText();
+        try {
+            assertEquals(expectedAlias, actualAlias);
+            System.out.println("Dane sa zgodne");
+        } catch (AssertionError e) {
+            String newLine = System.getProperty("line.separator");
+            System.out.println("Dane nie sa zgodne," + newLine + "Oczekiwane dane: " + expectedAlias + newLine + "Otrzymane dane: " + actualAlias);
         }
     }
 

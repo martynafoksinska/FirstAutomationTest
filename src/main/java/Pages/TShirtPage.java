@@ -3,6 +3,7 @@ package Pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import static org.junit.Assert.assertEquals;
 
 public class TShirtPage {
     private WebDriver driver;
@@ -12,6 +13,13 @@ public class TShirtPage {
     }
 
     public void purchasingTShirt() throws InterruptedException {
+        if (driver.findElement(By.cssSelector("span[class='discount discount-percentage']")).isDisplayed()) {
+            String expectedDiscount = "SAVE 20%";
+            String actualDiscount = driver.findElement(By.cssSelector("span[class='discount discount-percentage']")).getText();
+            assertEquals(expectedDiscount, actualDiscount);
+        } else {
+            System.out.println("Brak aktywnej znizki");
+        }
         WebElement sizeInput = driver.findElement(By.xpath("//*[@id='group_1']/option[2]"));
         sizeInput.click();
         WebElement quantityInput = driver.findElement(By.id("quantity_wanted"));

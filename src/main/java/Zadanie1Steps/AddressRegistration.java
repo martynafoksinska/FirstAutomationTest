@@ -8,7 +8,6 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import static org.junit.Assert.assertEquals;
@@ -42,10 +41,7 @@ public class AddressRegistration {
     @And("user checks if data is correct")
     public void userChecksIfDataIsCorrect() {
         String expectedAlias = "Home address";
-        WebElement rows = driver.findElement(By.xpath("//*[@id='content']"));
-        WebElement div = rows.findElement(By.cssSelector("div[class*=col-lg-4]"));
-        WebElement address = div.findElement(By.cssSelector("article[id*=address-]:last-child"));
-        String actualAlias = address.findElement(By.tagName("h4")).getText();
+        String actualAlias = driver.findElement(By.xpath("/html/body/main/section/div/div/section/section/div[2]/article/div[1]/h4")).getText();
         try {
             assertEquals(expectedAlias, actualAlias);
             System.out.println("Dane sa zgodne");

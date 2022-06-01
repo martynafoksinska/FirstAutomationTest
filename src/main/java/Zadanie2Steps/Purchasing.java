@@ -7,8 +7,15 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.devtools.v85.media.model.Timestamp;
+
+import java.io.File;
+import java.io.IOException;
 
 public class Purchasing {
 
@@ -47,7 +54,11 @@ public class Purchasing {
     }
 
     @Then("screenshot with payment confirmation is done")
-    public void screenshot() {
+    public void screenshot() throws IOException {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        String imageFileDir = "\\Users\\marty\\ZadanieWarsztatowe1\\src\\tmpS";
+        FileUtils.copyFile(scrFile, new File(imageFileDir, "test" + timestamp + ".png"));
         driver.quit();
 
     }

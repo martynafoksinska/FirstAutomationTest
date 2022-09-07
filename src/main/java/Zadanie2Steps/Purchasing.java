@@ -57,7 +57,7 @@ public class Purchasing {
     public void screenshot() throws IOException {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-        String imageFileDir = "\\Users\\marty\\ZadanieWarsztatowe1\\src\\tmpS";
+        String imageFileDir = "\\Users\\m.foksinska\\Pictures";
         FileUtils.copyFile(scrFile, new File(imageFileDir, "test" + timestamp + ".png"));
         driver.quit();
 
